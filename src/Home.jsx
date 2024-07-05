@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function App() {
+function Home() {
   return (
     <div className="flex flex-col justify-center bg-white">
       <div className="flex flex-col items-center w-full bg-white max-md:max-w-full">
@@ -176,4 +176,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
