@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./HomePage/Home.jsx";
-import RecipesPage from "./RecipesPage";
-import SingleRecipe from "./SingleRecipe";
+import RecipesPage from "./RecipesPage.jsx";
+import SingleRecipe from "./SingleRecipe.jsx";
 
 const Routing = () => {
   return (
