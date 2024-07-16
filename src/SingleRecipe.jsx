@@ -6,7 +6,7 @@ import Header from "./HomePage/Header.jsx";
 import Footer from "./HomePage/Footer.jsx";
 
 const SingleRecipe = () => {
-  const { _id } = useParams();
+  const { id } = useParams();
 
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,9 +14,7 @@ const SingleRecipe = () => {
 
   const fetchRecipe = async () => {
     try {
-      const recipe = await axios.get(
-        `http://localhost:5000/api/recipes/${_id}`
-      );
+      const recipe = await axios.get(`http://localhost:5000/api/recipe/${id}`);
       setRecipe(recipe.data);
     } catch (error) {
       setError(error);
