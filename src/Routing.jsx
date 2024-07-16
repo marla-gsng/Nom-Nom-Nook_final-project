@@ -9,7 +9,7 @@ const Routing = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recipes" element={<RecipesPage />} />
-        <Route path="/recipes/:id" element={<SingleRecipe />} />
+        <Route path="/recipe/:id" element={<SingleRecipe />} />
       </Routes>
     </>
   );

@@ -8,7 +8,9 @@ const Footer = () => {
         <div>Terms of Service</div>
         <div>Privacy Policy</div>
       </div>
-      <div className="mt-6 max-md:max-w-full">© 2022 Nom Nom Nook</div>
+      <div className="mt-6 max-md:max-w-full">
+        © 2024 Nom Nom Nook by Marla Geesing{" "}
+      </div>
     </div>
   );
 };
