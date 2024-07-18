@@ -1,41 +1,29 @@
 const Header = () => {
   return (
-    <header
-      style={{
-        backgroundColor: "#f3f3f3",
-        padding: "20px",
-        textAlign: "center",
-      }}
-    >
-      <h1 style={{ color: "#333" }}>Nom Nom Nook</h1>
-      <nav>
-        <ul style={{ listStyleType: "none", padding: 0 }}>
-          <li style={{ display: "inline", marginRight: "20px" }}>
-            <a
-              // href="#home"
-              style={{ textDecoration: "none", color: "#007bff" }}
-            >
+    <header className="w-full flex justify-between items-center p-4">
+      <div className="flex justify-start items-center gap-10">
+        <h1>Nom Nom Nook</h1>
+        <ul className="flex gap-4 justify-end">
+          <li>
+            <a href="/#" className="hover:text-gray-700">
               Home
             </a>
           </li>
-          <li style={{ display: "inline", marginRight: "20px" }}>
-            <a
-              // href="#recipes"
-              style={{ textDecoration: "none", color: "#007bff" }}
-            >
+          <li>
+            <a href="/recipes" className="hover:text-gray-700">
               Recipes
             </a>
           </li>
-          <li style={{ display: "inline" }}>
-            <a
-              // href="#about"
-              style={{ textDecoration: "none", color: "#007bff" }}
-            >
-              About
-            </a>
-          </li>
         </ul>
-      </nav>
+      </div>
+      <div className="flex gap-4">
+        <a href="#login" className="hover:text-gray-700">
+          Login
+        </a>
+        <a href="#signup" className="hover:text-gray-700">
+          Sign Up
+        </a>
+      </div>
     </header>
   );
 };
