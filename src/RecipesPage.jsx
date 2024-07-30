@@ -1,5 +1,5 @@
 import React from "react";
-import Routing from "./Routing.jsx";
+// import Routing from "./Routing.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -31,11 +31,11 @@ const RecipesPage = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex-grow flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mt-10 mb-5">Recipes</h1>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 w-full px-4">
           {recipes.map((recipe) => (
             <div
               key={recipe.id}

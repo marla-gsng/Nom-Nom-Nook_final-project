@@ -1,5 +1,5 @@
-import React from "react";
 import heroImage from "../assets/images/hero-img_FP.jpeg";
+import "../App.css";
 
 const Hero = () => {
   return (
@@ -7,18 +7,20 @@ const Hero = () => {
       <div className="hero__container">
         <h1 className="hero__title">Let's get cooking...</h1>
         <img src={heroImage} alt="Delicious Food" className="hero__img" />
-        <p className="hero__description">
-          Get inspired by our recipes and start your cooking journey now !
-        </p>
-        <input
-          style={{ display: "flex", alignItems: "center" }}
-          type="text"
-          placeholder="Search recipes..."
-          className="hero__search-bar"
-        />
-        <button>
-          <i className="fas fa-search">Find</i>
-        </button>
+        <div className="middle-section bg-neutral-100 bg-opacity-75 p-6 rounded-lg">
+          <p className="hero__description text-lg text-bold text-indigo-600">
+            Get inspired by our recipes and start your cooking journey now!
+          </p>
+          <input
+            style={{ display: "flex", alignItems: "center" }}
+            type="text"
+            placeholder="Search recipes..."
+            className="hero__search-bar text-lg p-2 rounded-xl w-full mt-4 h-16"
+          />
+          <button className="bg-indigo-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-700">
+            <i className="fas fa-search">Find</i>
+          </button>
+        </div>
       </div>
     </div>
   );

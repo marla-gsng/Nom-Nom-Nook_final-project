@@ -1,14 +1,13 @@
 const Header = () => {
   return (
-    <header className="w-full flex justify-between items-center p-4">
+    <header className=" w-full h-20 flex justify-between items-center p-4 bg-yellow-800 z-50">
       <div className="flex justify-start items-center gap-10">
-        <h1>Nom Nom Nook</h1>
+        <h1>
+          <a href="/#" className="hover:text-green-700">
+            Nom Nom Nook
+          </a>
+        </h1>
         <ul className="flex gap-4 justify-end">
-          <li>
-            <a href="/#" className="hover:text-gray-700">
-              Home
-            </a>
-          </li>
           <li>
             <a href="/recipes" className="hover:text-gray-700">
               Recipes
@@ -16,7 +15,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-6">
         <a href="#login" className="hover:text-gray-700">
           Login
         </a>
