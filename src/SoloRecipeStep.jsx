@@ -1,185 +1,87 @@
-import React from "react";
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
+import axios from 'axios'
+
 
 const SoloRecipeStep = (recipes) => {
-  const { id, stepId } = useParams();
-  const navigate = useNavigate();
-  console.log({ id, stepId });
-  console.log(recipes);
+  const { id } = useParams();
 
-  if (!Array.isArray(recipes)) {
-    return <div>Invalid recipes data</div>;
-  }
+  const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [stepNumber, setStepNumber] = useState(0)
 
-  const recipe = recipes.find((recipe) => recipe._id === id);
-  console.log(recipe);
-
-  if (!recipe) {
-    return <div>Recipe not found</div>;
-  }
-
-  const stepIndex = recipe.steps.findIndex(
-    (step) => step.stepNumber === parseInt(stepId)
-  );
-
-  if (stepIndex === -1) {
-    return <div>Step not found</div>;
-  }
-
-  const step = recipe.steps[stepIndex];
-  const nextStep = recipe.steps[stepIndex + 1];
-
-  const handleNextClick = () => {
-    if (nextStep) {
-      navigate(`/recipes/${id}/step/${nextStep.stepNumber}`);
+  const fetchRecipe = async () => {
+    try {
+      const recipe = await axios.get(`http://localhost:5001/api/recipe/${id}`);
+      setRecipe(recipe.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    fetchRecipe();
+  }, []);
+
+  console.log(recipe && recipe.instructions.length)
+
+
+  console.log(stepNumber)
   return (
     <>
-      <div className="flex flex-col justify-items-center ">
-        <div className="flex flex-col items-center justify-center">
-          <div className="w-3/4 mt-40 md:w-128 h-128 bg-amber-700 rounded-md">
-            <h2 className="mt-10 mb-4 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
-              {recipe.steps[stepIndex].step}
-            </h2>
-          </div>
-          {nextStep && (
-            <button
-              onClick={handleNextClick}
-              className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg"
-            >
+      {recipe && !loading ? (
+        <div className="flex flex-col justify-items-center ">
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-3/4 mt-40 md:w-128 h-128 bg-amber-700 rounded-md">
+              <h2 className="mt-10 mb-4 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
+                {recipe.instructions[stepNumber].step}
+              </h2>
+            </div>
+            <button onClick={() => setStepNumber(stepNumber + 1)} disabled={stepNumber === recipe.instructions.length - 1} className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg">
               Next
             </button>
-          )}
+          </div>
         </div>
-      </div>
+      )
+        : 'Loading'
+      }
+
     </>
   );
 };
 
 export default SoloRecipeStep;
 
-// import React from "react";
-// import { useParams, Link } from "react-router-dom";
 
-// const SoloRecipeStep = ({ recipes }) => {
-//   const { id, stepId } = useParams();
-//   console.log({ id, stepId });
-//   console.log(recipes);
 
-//   const recipe = recipes.find((recipe) => recipe._id === id);
-//   console.log(recipe);
 
-//   if (!recipe) {
-//     return <div>Recipe not found</div>;
+
+// if (!Array.isArray(recipes)) {
+//   return <div>Invalid recipes data</div>;
+// }
+
+// const recipe = recipes.find((recipe) => recipe._id === id);
+
+// if (!recipe) {
+//   return <div>Recipe not found</div>;
+// }
+
+// const stepIndex = recipe.steps.findIndex(
+//   (step) => step.stepNumber === parseInt(stepId)
+// );
+
+// if (stepIndex === -1) {
+//   return <div>Step not found</div>;
+// }
+
+// const step = recipe.steps[stepIndex];
+// const nextStep = recipe.steps[stepIndex + 1];
+
+// const handleNextClick = () => {
+//   if (nextStep) {
+//     navigate(`/recipes/${id}/step/${nextStep.stepNumber}`);
 //   }
-
-//   const step = recipe.steps.find(
-//     (step) => step.stepNumber === parseInt(stepId)
-//   );
-//   console.log(step);
-
-//   if (!step) {
-//     return <div>Step not found</div>;
-//   }
-
-//   // const SoloRecipeStep = ({ recipes }) => {
-//   //   console.log(recipes);
-//   //   const { id, stepId } = useParams();
-//   //   const recipe = recipes.find((recipe) => recipe._id === id);
-//   //   const stepIndex = parseInt(stepId, 10) - 1;
-//   //   //    const step = recipe.instructions[stepIndex];
-
-//   //   if (!recipe) {
-//   //     return <div>Recipe not found</div>;
-//   //   }
-
-//   //   const step = recipe.steps.find(
-//   //     (step) => step.stepNumber === parseInt(stepId)
-//   //   );
-
-//   //   if (!step) {
-//   //     return <div>Step not found</div>;
-//   //   }
-
-//   return (
-//     <>
-//       <div className="flex flex-col justify-items-center ">
-//         <div className="flex flex-col items-center justify-center">
-//           <div className="w-3/4 mt-40 md:w-128 h-128 bg-amber-700 rounded-md">
-//             <h2 className="mt-10 mb-4 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
-//               {recipe.title}
-//             </h2>
-//             {/* Other content */}
-//           </div>
-//         </div>
-//       </div>
-//     </>
-
-//     // <div className="flex flex-col justify-items-center ">
-//     //   <div className="flex flex-col items-center justify-center">
-//     //     <div className="w-3/4 mt-40 md:w-128 h-128 bg-amber-700 rounded-md">
-//     //       <h2 className="mt-10 mb-4 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
-//     //         {recipe.title}
-//     //       </h2>
-
-//     //       <p className="text-lg md:text-xl lg:text-2xl text-center mb-4">
-//     //         {recipe.category}
-//     //       </p>
-
-//     //       <p className="text-lg md:text-xl lg:text-2xl text-center mb-4">
-//     //         {recipe.totalTime}
-//     //       </p>
-
-//     //       <div className="w-full text-lg md:text-xl lg:text-2xl flex justify-center gap-4 flex-wrap">
-//     //         <h3>Tags:</h3>
-
-//     //         {recipe.tags.map((tag, index) => (
-//     //           <span key={index} className="px-4 py-1">
-//     //             {tag}
-//     //           </span>
-//     //         ))}
-//     //       </div>
-
-//     //       <div className="mt-5 pl-6 text-lg md:text-xl lg:text-2xl text-left">
-//     //         <h2 className="text-3xl mb-5">Ingredients:</h2>
-
-//     //         <ul>
-//     //           {recipe.ingredients.map((ingredient, index) => (
-//     //             <li key={index} className="grid grid-cols-2 ">
-//     //               <span className="flex justify-start items-center">
-//     //                 {ingredient.quantity} {ingredient.unit}
-//     //               </span>
-
-//     //               <span className="flex justify-start items-center">
-//     //                 {ingredient.name}
-//     //               </span>
-//     //             </li>
-//     //           ))}
-//     //         </ul>
-//     //       </div>
-
-//     //       <div className="mt-8 mb-10 m-6 text-lg md:text-xl lg:text-2xl text-left">
-//     //         <h2 className="text-3xl mb-5">Instructions</h2>
-
-//     //         <ul>
-//     //           <li className="mb-5">{step.step}</li>
-//     //         </ul>
-//     //       </div>
-//     //     </div>
-
-//     //     <div className="text-center mt-8 mb-10">
-//     //       <Link
-//     //         to={`/recipe/${id}/step/${stepId + 1}`}
-//     //         className="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
-//     //       >
-//     //         Next Step
-//     //       </Link>
-//     //     </div>
-//     //   </div>
-//     // </div>
-//   );
 // };
-
-// export default SoloRecipeStep;

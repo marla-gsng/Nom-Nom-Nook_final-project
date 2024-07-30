@@ -14,7 +14,7 @@ const RecipesPage = () => {
 
   const fetchRecipes = async () => {
     try {
-      const recipes = await axios.get("http://localhost:5000/api/recipes");
+      const recipes = await axios.get("http://localhost:5001/api/recipes");
       setRecipes(recipes.data);
     } catch (error) {
       setError(error);

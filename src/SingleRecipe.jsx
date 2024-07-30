@@ -15,7 +15,7 @@ const SingleRecipe = () => {
 
   const fetchRecipe = async () => {
     try {
-      const recipe = await axios.get(`http://localhost:5000/api/recipe/${id}`);
+      const recipe = await axios.get(`http://localhost:5001/api/recipe/${id}`);
       setRecipe(recipe.data);
     } catch (error) {
       setError(error);
@@ -84,7 +84,7 @@ const SingleRecipe = () => {
         </div>
         <div className="text-center mt-8 mb-10">
           <Link
-            to={`/recipe/${recipe._id}/step/1`}
+            to={`/recipe/${recipe._id}/step`}
             className="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
           >
             Let's Cook!

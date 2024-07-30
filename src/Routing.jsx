@@ -11,7 +11,7 @@ const Routing = () => {
         <Route path="/" element={<Home />} />
         <Route path="/recipes" element={<RecipesPage />} />
         <Route path="/recipe/:id" element={<SingleRecipe />} />
-        <Route path="/recipe/:id/step/:stepId" element={<SoloRecipeStep />} />
+        <Route path="/recipe/:id/step" element={<SoloRecipeStep />} />
       </Routes>
     </>
   );
