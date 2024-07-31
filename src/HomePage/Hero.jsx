@@ -1,13 +1,14 @@
-import heroImage from "../assets/images/hero-img_FP.jpeg";
+import heroImage from "../assets/images/FP-hero-op1.jpeg";
 import "../App.css";
 
 const Hero = () => {
   return (
     <div className="hero">
       <div className="hero__container">
-        <h1 className="hero__title">Let's get cooking...</h1>
         <img src={heroImage} alt="Delicious Food" className="hero__img" />
-        <div className="middle-section bg-neutral-100 bg-opacity-75 p-6 rounded-lg">
+
+        <div className="middle-section bg-orange-200 bg-opacity-75 p-6 rounded-lg">
+          <h1 className="hero__title text-black">Let's get cooking...</h1>
           <p className="hero__description text-lg text-bold text-indigo-600">
             Get inspired by our recipes and start your cooking journey now!
           </p>

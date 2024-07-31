@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 const SoloRecipeStep = (recipes) => {
@@ -57,6 +57,13 @@ const SoloRecipeStep = (recipes) => {
               >
                 Next
               </button>
+            </div>
+            <div className="mt-4">
+              <Link to={`/recipe/${id}`}>
+                <button className="px-3 py-1 bg-gray-500 text-white rounded-lg text-sm">
+                  Back to Recipe
+                </button>
+              </Link>
             </div>
           </div>
         </div>
