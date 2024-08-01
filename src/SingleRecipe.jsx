@@ -45,24 +45,33 @@ const SingleRecipe = () => {
           h2 {
             text-align: center;
             color: #333;
+            font-weight: 800; 
           }
           ul {
             list-style-type: disc;
             padding-left: 20px;
+            list-style-type: none;
+            margin: 50px;
+            text-align: left;
           }
           li {
             margin-bottom: 10px;
             font-size: 18px;
+            list-style-type: none;
+            padding: 10px;
           }
+          .checkbox {
+           margin-right: 10px;
         </style>
       </head>
       <body>
-        <h2>Ingredients</h2>
+        <h2>Ingredients for ${recipe.title}</h2>
         <ul>
           ${recipe.ingredients
             .map(
               (ingredient) => `
             <li>
+            <input type="checkbox" class="checkbox" />
               ${ingredient.quantity} ${ingredient.unit} ${ingredient.name}
             </li>
           `
@@ -117,19 +126,21 @@ const SingleRecipe = () => {
   return (
     <div className="flex flex-col justify-items-center ">
       <Header />
-      <label className="switch ml-4">
-        <input
-          type="checkbox"
-          checked={isWakeLockActive}
-          onChange={handleToggleChange}
-        />
-        <span className="slider round"></span>
-        <p className="ml-2 w-6 mt-5 text-black flex">
-          {isWakeLockActive ? "Let Screen Sleep" : "Keep Screen Awake"}
+      <div className="flex mt-12 mr-10 flex-col w-full justify-end items-center px-4">
+        <p className=" w-60 mt-5 text-black text-sm ">
+          {isWakeLockActive ? "Off" : "Keep Screen Awake for Cooking!"}
         </p>
-      </label>
+        <label className="switch flex items-center">
+          <input
+            type="checkbox"
+            checked={isWakeLockActive}
+            onChange={handleToggleChange}
+          />
+          <span className="slider round flex justify-end"></span>
+        </label>
+      </div>
       <div className="flex flex-col items-center justify-center">
-        <div className="w-3/4 mt-40 md:w-128 h-128 bg-amber-700 rounded-md">
+        <div className="w-3/4 mt-10 md:w-128 h-128 bg-licorice rounded-md">
           <h2 className="mt-10 mb-4 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
             {recipe.title}
           </h2>
@@ -165,7 +176,7 @@ const SingleRecipe = () => {
           </div>
           <button
             onClick={openIngredientsWindow}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+            className="px-4 py-2 mt-7 bg-ecru text-white rounded-lg"
           >
             Open List in A Separate Window
           </button>
@@ -189,10 +200,10 @@ const SingleRecipe = () => {
           {isWakeLockActive ? "Disable Wake Lock" : "Enable Wake Lock"}
         </button> */}
 
-        <div className="text-center mt-8 mb-10">
+        <div className="text-center mt-10 mb-10">
           <Link
             to={`/recipe/${recipe._id}/step`}
-            className="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+            className="inline-block bg-ecru text-white py-4 px-8 text-2xl rounded hover:bg-blue-700 transition-colors"
           >
             Let's Cook!
           </Link>

@@ -3,7 +3,7 @@
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
-  background-color: blanchedalmond;
+  background-color: #764134;
 }
 
 .hero {
@@ -20,7 +20,8 @@
 
 .hero__img {
   width: 100%;
-  height: auto;
+  height: fit-content;
+  object-fit: cover;
 }
 
 .middle-section {

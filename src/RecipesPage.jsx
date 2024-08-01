@@ -31,25 +31,27 @@ const RecipesPage = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <div className="flex-grow flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mt-10 mb-5">Recipes</h1>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 w-full px-4">
-          {recipes.map((recipe) => (
-            <div
-              key={recipe.id}
-              className="w-64 h-64 bg-amber-800 rounded-md flex items-center justify-center"
-            >
-              <Link to={`/recipe/${recipe._id}`} className="text-white">
-                {recipe.title}
-              </Link>
-            </div>
-          ))}
+    <>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <div className="flex-grow flex flex-col items-center justify-center">
+          <h1 className="text-4xl font-bold mt-7 mb-7">Recipes</h1>
+          <div className="flex flex-wrap justify-center items-center w-full px-40 m-10">
+            {recipes.map((recipe) => (
+              <div
+                key={recipe.id}
+                className="w-48 h-48 bg-licorice rounded-md flex items-center justify-center m-2"
+              >
+                <Link to={`/recipe/${recipe._id}`} className="text-white">
+                  {recipe.title}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 

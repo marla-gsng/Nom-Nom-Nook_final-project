@@ -31,10 +31,13 @@ const SoloRecipeStep = (recipes) => {
   return (
     <>
       {recipe && !loading ? (
-        <div className="flex flex-col justify-items-center min-h-screen w-full bg-amber-700">
+        <div className="flex flex-col justify-items-center min-h-screen w-full bg-licorice">
           <div className="flex flex-col items-center justify-center w-full">
-            <div className="w-3/4 mt-40 md:w-128 h-128 bg-amber-700 rounded-md">
-              <p className="text-center text-lg md:text-xl lg:text-2xl">
+            <div className="w-3/4 mt-40 md:w-128 h-128 bg-bole rounded-lg p-12">
+              <h3 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                {recipe.title}
+              </h3>
+              <p className="text-center text-sm text-licorice md:text-xl lg:text-2xl">
                 Step {stepNumber + 1} of {recipe.instructions.length}
               </p>
 
@@ -60,7 +63,7 @@ const SoloRecipeStep = (recipes) => {
             </div>
             <div className="mt-4">
               <Link to={`/recipe/${id}`}>
-                <button className="px-3 py-1 bg-gray-500 text-white rounded-lg text-sm">
+                <button className="px-3 py-1 bg-ecru text-white rounded-lg text-sm">
                   Back to Recipe
                 </button>
               </Link>
