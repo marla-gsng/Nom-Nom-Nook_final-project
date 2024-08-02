@@ -8,7 +8,8 @@
   font-family: "Lilita One", sans-serif, "Inter", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  margin: none;
+  margin: auto;
+  width: 100%;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -24,8 +25,6 @@ html,
 body {
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 a {
