@@ -2,6 +2,7 @@ import heroImage from "../assets/images/FP-hero-op1.jpeg";
 import "../App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const [search, setSearch] = useState("");
@@ -13,9 +14,9 @@ const Hero = () => {
   const fetchRecipe = async () => {
     try {
       const recipe = await axios.get(
-        `http://localhost:5001/api/recipe/${searchRecipe}`
+        `http://localhost:5001/api/recipe/title/${searchRecipe}`
       );
-      setSearch(recipe.data);
+      setRecipe(recipe.data);
     } catch (error) {
       setError(error);
     } finally {
@@ -23,7 +24,12 @@ const Hero = () => {
     }
   };
 
-  // if (loading) return <div>Loading...</div>;
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      fetchRecipe();
+    }
+  };
+
   if (error) return <div>Error: {error.message}</div>;
 
   return (
@@ -48,6 +54,7 @@ const Hero = () => {
               className="hero__search-bar text-lg p-2 rounded-xl w-full mt-4 h-16"
               value={searchRecipe}
               onChange={(e) => setSearchRecipe(e.target.value)}
+              onKeyDown={handleKeyPress}
             />
             <button
               className="bg-indigo-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-700"
@@ -58,11 +65,11 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      {search && (
+      {recipe && (
         <div className="flex flex-col items-center justify-center">
-          <div className="w-3/4 mt-10 md:w-128 h-128 bg-licorice rounded-md">
-            <h2 className="mt-10 mb-4 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
-              {search.title}
+          <div className="w-3/4 mt-10 mb-10 md:w-128 h-128 bg-licorice rounded-md">
+            <h2 className="mt-10 mb-10 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
+              <Link to={`/recipe/${recipe._id}`}>{recipe.title}</Link>
             </h2>
           </div>
         </div>
