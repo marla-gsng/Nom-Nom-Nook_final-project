@@ -12,7 +12,7 @@ const SoloRecipeStep = (recipes) => {
 
   const fetchRecipe = async () => {
     try {
-      const recipe = await axios.get(`http://localhost:5001/api/recipe/${id}`);
+      const recipe = await axios.get(`http://localhost:5001/api/recipes/${id}`);
       setRecipe(recipe.data);
     } catch (error) {
       setError(error);
@@ -62,7 +62,7 @@ const SoloRecipeStep = (recipes) => {
               </button>
             </div>
             <div className="mt-4">
-              <Link to={`/recipe/${id}`}>
+              <Link to={`/recipes/${id}`}>
                 <button className="px-3 py-1 bg-ecru text-white rounded-lg text-sm">
                   Back to Recipe
                 </button>

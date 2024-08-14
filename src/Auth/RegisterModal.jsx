@@ -5,7 +5,7 @@ import axios from "axios";
 
 Modal.setAppElement("#root");
 
-const RegisterModal = ({ isOpen, onRequestOpen, openLoginModal }) => {
+const RegisterModal = ({ isOpen, onRequestClose, openLoginModal }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,15 +19,13 @@ const RegisterModal = ({ isOpen, onRequestOpen, openLoginModal }) => {
         email,
         password,
       });
-      console.log(response);
-
-      //   if (response )
-      //     alert("You have successfully registered!");
-      //     onRequestClose(); // Close the modal on successful registration
-      //   }
+      // console.log(response);
+      if (response.status) {
+        return alert("You have successfully registered!");
+      }
     } catch (error) {
       console.error("Registration failed:", error);
-      alert("Registration failed. Please try again.");
+      return alert("Registration failed. Please try again.");
     }
   };
 
@@ -60,12 +58,22 @@ const RegisterModal = ({ isOpen, onRequestOpen, openLoginModal }) => {
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestOpen}
-      contentLabel="Register Modal"
-      style={customStyles}
-    >
+    <Modal isOpen={isOpen} contentLabel="Register Modal" style={customStyles}>
+      <button
+        onClick={onRequestClose}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          background: "transparent",
+          border: "none",
+          color: "#D2B48C",
+          fontSize: "20px",
+          cursor: "pointer",
+        }}
+      >
+        &times;
+      </button>
       <h2>Register</h2>
       <form onSubmit={handleRegister}>
         <input

@@ -1,40 +1,43 @@
 import { useState } from "react";
+import { useAuth } from "../Context/AuthContext";
 // import Modal from "react-modal";
+
 import LoginModal from "../Auth/LoginModal";
+import RegisterModal from "../Auth/RegisterModal";
 
 // Modal.setAppElement("#root");
 
 const Header = () => {
+  const { login, userData, logout } = useAuth();
+
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
-  const openLoginModal = () => {
-    setIsLoginModalOpen(true);
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const openLoginModal = () => setIsLoginModalOpen(true);
+  const closeLoginModal = () => setIsLoginModalOpen(false);
+
+  const openRegisterModal = () => setIsRegisterModalOpen(true);
+  const closeRegisterModal = () => setIsRegisterModalOpen(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const loggedUser = await login(user);
+      if (loggedUser.data.message) return alert(loggedUser.data.message);
+    } catch (err) {
+      alert("Email or password invalid");
+    }
   };
 
-  const closeLoginModal = () => {
-    setIsLoginModalOpen(false);
+  const handleLogout = () => {
+    logout();
   };
-
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const [isLogin, setIsLogin] = useState(true);
-
-  // const openModal = () => {
-  //   setModalIsOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setModalIsOpen(false);
-  // };
-
-  // const toggleLoginRegister = () => {
-  //   setIsLogin(!isLogin);
-  // };
-
-  // const handleLoginRegister = (event) => {
-  //   event.preventDefault();
-  //   // Add login/register logic here
-  //   closeModal();
-  // };
 
   return (
     <>
@@ -53,17 +56,59 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        <div className="flex gap-6">
-          <button
-            onClick={openLoginModal}
-            className="hover:text-gray-700 text-white"
-          >
-            Login / Register
-          </button>
-        </div>
+        {userData ? (
+          <>
+            <li className="list-none">
+              <a href="/profile">Profile</a>
+            </li>
+            <li className="list-none">
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </>
+        ) : (
+          <>
+            <div className="flex gap-6">
+              <button
+                onSubmit={handleLogin}
+                onClick={openLoginModal}
+                className="hover:text-gray-700 text-white"
+              >
+                Login / Register
+              </button>
+            </div>
+          </>
+        )}
       </header>
       <LoginModal isOpen={isLoginModalOpen} onRequestClose={closeLoginModal} />
-      {/* <Modal
+    </>
+  );
+};
+
+export default Header;
+
+// const [modalIsOpen, setModalIsOpen] = useState(false);
+// const [isLogin, setIsLogin] = useState(true);
+
+// const openModal = () => {
+//   setModalIsOpen(true);
+// };
+
+// const closeModal = () => {
+//   setModalIsOpen(false);
+// };
+
+// const toggleLoginRegister = () => {
+//   setIsLogin(!isLogin);
+// };
+
+// const handleLoginRegister = (event) => {
+//   event.preventDefault();
+//   // Add login/register logic here
+//   closeModal();
+// };
+
+{
+  /* <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Login/Register Modal"
@@ -105,9 +150,5 @@ const Header = () => {
         <button onClick={closeModal} className="text-red-600 mt-4">
           Close
         </button>
-      </Modal> */}
-    </>
-  );
-};
-
-export default Header;
+      </Modal> */
+}

@@ -42,7 +42,7 @@ const RecipesPage = () => {
                 key={recipe.id}
                 className="w-48 h-48 bg-licorice rounded-md flex items-center justify-center m-2"
               >
-                <Link to={`/recipe/${recipe._id}`} className="text-white">
+                <Link to={`/recipes/${recipe._id}`} className="text-white">
                   {recipe.title}
                 </Link>
               </div>

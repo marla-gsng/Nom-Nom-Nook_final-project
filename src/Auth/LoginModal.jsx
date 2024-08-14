@@ -8,10 +8,10 @@ Modal.setAppElement("#root");
 const LoginModal = ({ isOpen, onRequestClose }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  //   const [identifier, setIdentifier] = useState("");
-
   const [password, setPassword] = useState("");
+
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -41,6 +41,10 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
     onRequestClose();
     setIsRegisterModalOpen(true);
   };
+
+  // const handleLogout = () => {
+  //   setIsLoggedIn(false);
+  // };
 
   const closeRegisterModal = () => {
     setIsRegisterModalOpen(false);
@@ -74,6 +78,23 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
         contentLabel="Login Modal"
         style={customStyles}
       >
+        <button
+          onClick={onRequestClose}
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            background: "transparent",
+            border: "none",
+            color: "#D2B48C",
+            fontSize: "20px",
+            cursor: "pointer",
+          }}
+        >
+          &times;
+        </button>
+        {/* {!isLoggedIn ? (
+          <> */}
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <input
@@ -104,10 +125,8 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
             Login
           </button>
         </form>
-        <button onClick={handleRegister} className="text-blue-600 mt-4">
-          Register here
-        </button>
       </Modal>
+
       <RegisterModal
         isOpen={isRegisterModalOpen}
         onRequestClose={closeRegisterModal}
@@ -118,3 +137,22 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
 };
 
 export default LoginModal;
+
+{
+  /* </>
+        ) : ( */
+}
+{
+  /* <button
+          // onClick={handleLogout}
+          className="bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-blue-700"
+        >
+          Logout
+        </button>
+        {/* )} */
+}
+{
+  /* <button onClick={handleRegister} className="text-blue-600 mt-4">
+          Register here
+        </button> */
+}
