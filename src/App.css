@@ -44,6 +44,32 @@ button {
   margin-top: 1rem; /* Add some space above the button */
 }
 
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.favorites-section,
+.pantry-section {
+  width: 45%;
+}
+
+.favorites-section ul,
+.pantry-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.favorites-section li,
+.pantry-section li {
+  margin: 5px 0;
+}
+
+.pantry-section input {
+  margin-right: 10px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

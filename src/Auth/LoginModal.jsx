@@ -2,10 +2,13 @@ import { useState } from "react";
 import Modal from "react-modal";
 import RegisterModal from "./RegisterModal";
 import axios from "axios";
+import { useAuth } from "../Context/AuthContext";
 
 Modal.setAppElement("#root");
 
 const LoginModal = ({ isOpen, onRequestClose }) => {
+  const { login } = useAuth();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,26 +19,13 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5001/api/login", {
-        username,
-        email,
-        password,
-      });
-      if (response.status === 200) {
-        alert("You have successfully logged in!");
-        onRequestClose(); // Close the modal on successful login
-      }
+      const loggedUser = await login({ username, email, password });
+      if (loggedUser.data.message) return alert(loggedUser.data.message);
+      onRequestClose();
     } catch (error) {
-      console.error("Login failed:", error);
-      alert("Login failed. Please try again.");
+      alert("Email or password invalid");
     }
   };
-
-  //     }
-  //     // Add login logic
-  //     console.log("Email:", email);
-  //     console.log("Password:", password);
-  //   };
 
   const handleRegister = () => {
     onRequestClose();
@@ -123,6 +113,9 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
             className="bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-blue-700"
           >
             Login
+          </button>
+          <button onClick={handleRegister} className="text-blue-600 mt-4">
+            Register here
           </button>
         </form>
       </Modal>

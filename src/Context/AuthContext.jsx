@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -17,14 +18,20 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const fetchUser = async (token) => {
+    console.log(token);
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/user/token`,
+        `http://localhost:5001/api/users/token`,
         { token }
       );
-      setUserData(response.data);
+      setToken(response.data);
+      setUserData(response.data.user);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      console.error(
+        "Error fetching user:",
+        err.response ? err.response.data : err.message
+      );
     }
   };
 
@@ -52,7 +59,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ login, logout, userData }}>
+    <AuthContext.Provider
+      value={{ login, logout, userData, setUserData, setToken }}
+    >
       {children}
     </AuthContext.Provider>
   );
