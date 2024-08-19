@@ -69,7 +69,7 @@ const Hero = () => {
         <div className="flex flex-col items-center justify-center">
           <div className="w-3/4 mt-10 mb-10 md:w-128 h-128 bg-licorice rounded-md">
             <h2 className="mt-10 mb-10 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
-              <Link to={`/recipe/${recipe._id}`}>{recipe.title}</Link>
+              <Link to={`/recipes/${recipe._id}`}>{recipe.title}</Link>
             </h2>
           </div>
         </div>

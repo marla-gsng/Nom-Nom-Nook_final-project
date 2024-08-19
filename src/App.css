@@ -70,6 +70,20 @@ button {
   margin-right: 10px;
 }
 
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.favourite-icon {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: gold;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

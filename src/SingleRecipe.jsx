@@ -1,13 +1,16 @@
 import "./App.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useAuth } from "./Context/AuthContext";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 import Header from "./HomePage/Header.jsx";
 import Footer from "./HomePage/Footer.jsx";
 
 const SingleRecipe = () => {
   const { id } = useParams();
+  const { userData, setUserData } = useAuth();
 
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,6 +18,26 @@ const SingleRecipe = () => {
 
   const [wakeLock, setWakeLock] = useState(null);
   const [isWakeLockActive, setIsWakeLockActive] = useState(false);
+
+  const addToFavorites = async () => {
+    console.log(userData);
+    try {
+      const updatedFavorites = userData?.favorites?.includes(id)
+        ? userData.favorites.filter((favId) => favId !== id)
+        : [...userData.favorites, id];
+
+      await axios.put(
+        `http://localhost:5001/api/users/${userData._id}/favorites`,
+        {
+          favorites: updatedFavorites,
+        }
+      );
+
+      setUserData({ ...userData, favorites: updatedFavorites });
+    } catch (error) {
+      console.error("Error updating favorites:", error);
+    }
+  };
 
   const fetchRecipe = async () => {
     try {
@@ -30,6 +53,28 @@ const SingleRecipe = () => {
   useEffect(() => {
     fetchRecipe();
   }, []);
+
+  // const handleFavourite = async () => {
+  //   try {
+  //     const updatedFavourites = isFavourite
+  //       ? userData.favourites.filter((favId) => favId !== id)
+  //       : [...userData.favourites, id];
+
+  //     // Update the user's favourites in the backend
+  //     await axios.put(
+  //       `http://localhost:5001/api/users/${userData.id}/favourites`,
+  //       {
+  //         favourites: updatedFavourites,
+  //       }
+  //     );
+
+  //     // Update the user's favourites in the context
+  //     setUserData({ ...userData, favourites: updatedFavourites });
+  //     setIsFavourite(!isFavourite);
+  //   } catch (error) {
+  //     console.error("Error updating favourites:", error);
+  //   }
+  // };
 
   const openIngredientsWindow = () => {
     const ingredientsHtml = `
@@ -123,6 +168,7 @@ const SingleRecipe = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   console.log(recipe);
+
   return (
     <div className="flex flex-col justify-items-center ">
       <Header />
@@ -144,6 +190,11 @@ const SingleRecipe = () => {
           <h2 className="mt-10 mb-4 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
             {recipe.title}
           </h2>
+
+          <button onClick={addToFavorites} className="ml-4 text-red-500">
+            <FaHeart size={24} />
+            {/* {isFavourite ? <FaHeart size={24} /> : <FaRegHeart size={24} />} */}
+          </button>
           <p className="text-lg md:text-xl lg:text-2xl text-center mb-4">
             {recipe.category}
           </p>
@@ -180,7 +231,6 @@ const SingleRecipe = () => {
           >
             Open List in A Separate Window
           </button>
-
           <div className="mt-8 mb-10 m-6 text-lg md:text-xl lg:text-2xl text-left">
             <h2 className="text-3xl mb-5">Instructions</h2>
 

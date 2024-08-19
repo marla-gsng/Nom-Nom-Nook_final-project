@@ -24,8 +24,9 @@ export const AuthProvider = ({ children }) => {
         `http://localhost:5001/api/users/token`,
         { token }
       );
+      console.log(response);
       setToken(response.data);
-      setUserData(response.data.user);
+      setUserData(response.data);
     } catch (err) {
       // console.log(err);
       console.error(

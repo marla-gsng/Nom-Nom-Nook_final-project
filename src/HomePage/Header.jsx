@@ -9,6 +9,7 @@ import RegisterModal from "../Auth/RegisterModal";
 
 const Header = () => {
   const { login, userData, logout } = useAuth();
+  console.log(userData);
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
