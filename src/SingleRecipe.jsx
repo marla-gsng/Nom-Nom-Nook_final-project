@@ -54,28 +54,6 @@ const SingleRecipe = () => {
     fetchRecipe();
   }, []);
 
-  // const handleFavourite = async () => {
-  //   try {
-  //     const updatedFavourites = isFavourite
-  //       ? userData.favourites.filter((favId) => favId !== id)
-  //       : [...userData.favourites, id];
-
-  //     // Update the user's favourites in the backend
-  //     await axios.put(
-  //       `http://localhost:5001/api/users/${userData.id}/favourites`,
-  //       {
-  //         favourites: updatedFavourites,
-  //       }
-  //     );
-
-  //     // Update the user's favourites in the context
-  //     setUserData({ ...userData, favourites: updatedFavourites });
-  //     setIsFavourite(!isFavourite);
-  //   } catch (error) {
-  //     console.error("Error updating favourites:", error);
-  //   }
-  // };
-
   const openIngredientsWindow = () => {
     const ingredientsHtml = `
     <html>
@@ -173,28 +151,34 @@ const SingleRecipe = () => {
     <div className="flex flex-col justify-items-center ">
       <Header />
       <div className="flex mt-12 mr-10 flex-col w-full justify-end items-center px-4">
-        <p className=" w-60 mt-5 text-black text-sm ">
-          {isWakeLockActive ? "Off" : "Keep Screen Awake for Cooking!"}
-        </p>
-        <label className="switch flex items-center">
-          <input
-            type="checkbox"
-            checked={isWakeLockActive}
-            onChange={handleToggleChange}
-          />
-          <span className="slider round flex justify-end"></span>
-        </label>
+        <div className="flex w-full justify-between items-center">
+          <div>
+            <p className=" w-60 mt-5 text-black text-sm ">
+              {isWakeLockActive ? "Off" : "Keep Screen Awake for Cooking!"}
+            </p>
+            <label className="switch flex items-center">
+              <input
+                type="checkbox"
+                checked={isWakeLockActive}
+                onChange={handleToggleChange}
+              />
+              <span className="slider round flex justify-end"></span>
+            </label>
+          </div>
+          <button onClick={addToFavorites} className="ml-4 text-red-500 mt-5">
+            {userData.favorites ? (
+              <FaHeart size={24} />
+            ) : (
+              <FaRegHeart size={24} />
+            )}
+          </button>
+        </div>
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="w-3/4 mt-10 md:w-128 h-128 bg-licorice rounded-md">
           <h2 className="mt-10 mb-4 text-2xl md:text-3xl lg:text-4xl font-bold text-center">
             {recipe.title}
           </h2>
-
-          <button onClick={addToFavorites} className="ml-4 text-red-500">
-            <FaHeart size={24} />
-            {/* {isFavourite ? <FaHeart size={24} /> : <FaRegHeart size={24} />} */}
-          </button>
           <p className="text-lg md:text-xl lg:text-2xl text-center mb-4">
             {recipe.category}
           </p>
