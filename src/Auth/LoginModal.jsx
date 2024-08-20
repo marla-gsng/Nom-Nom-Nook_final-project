@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import RegisterModal from "./RegisterModal";
-import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 
 Modal.setAppElement("#root");
@@ -14,7 +13,6 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
   const [password, setPassword] = useState("");
 
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -31,10 +29,6 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
     onRequestClose();
     setIsRegisterModalOpen(true);
   };
-
-  // const handleLogout = () => {
-  //   setIsLoggedIn(false);
-  // };
 
   const closeRegisterModal = () => {
     setIsRegisterModalOpen(false);
@@ -83,8 +77,6 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
         >
           &times;
         </button>
-        {/* {!isLoggedIn ? (
-          <> */}
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <input
@@ -130,22 +122,3 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
 };
 
 export default LoginModal;
-
-{
-  /* </>
-        ) : ( */
-}
-{
-  /* <button
-          // onClick={handleLogout}
-          className="bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-blue-700"
-        >
-          Logout
-        </button>
-        {/* )} */
-}
-{
-  /* <button onClick={handleRegister} className="text-blue-600 mt-4">
-          Register here
-        </button> */
-}
